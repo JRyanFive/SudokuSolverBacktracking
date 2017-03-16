@@ -16,9 +16,8 @@
                 <MenuItem Header="Clear" Click="OnClear" />
             </MenuItem>
         </Menu>
-
-
-        <Grid Margin="10">
+        <ItemsControl ItemsSource="{Binding Cells}" ItemTemplate="{DynamicResource DataTemplate_Level1}"/>
+        <!--<Grid Margin="10">
             <ItemsControl ItemsSource="{Binding Cells}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -34,12 +33,30 @@
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </ItemsControl>    
+        </Grid>-->
 
-            <!--<ListBox
-        Grid.Row="2"
-        ItemsSource="{Binding Path=Cells}"
-        />-->
-        </Grid>
     </DockPanel>
+
+    <Window.Resources>
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Border BorderBrush="DarkGray" BorderThickness="1" Background="Gray">
+                <Label  Content="{Binding Path= Value}" HorizontalAlignment="Center"   Height="30" Width="30" 
+                                    MouseLeftButtonDown="Label_MouseLeftButtonDown"/>
+            </Border>
+            <!--<Button Content="{Binding}" Height="40" Width="50" Margin="4,4,4,4"/>-->
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
 </Window>
+
+    

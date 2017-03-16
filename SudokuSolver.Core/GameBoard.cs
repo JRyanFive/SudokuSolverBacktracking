@@ -13,32 +13,46 @@ namespace SudokuSolver.Core
         private CellFactory cellFactory = new CellFactory();
 
         int size = 9;
-        ICell[] sudokuGroup;
-
+        //Cell[] sudokuGroup;
+        SudokuCell[,] board;
         public void Init()
         {
-            sudokuGroup = new ICell[size];
+            //sudokuGroup = new Cell[size];
+            board = new SudokuCell[9, 9];
             int cellId = 0;
             for (int i = 0; i < size; i++)
             {
-                sudokuGroup[i] = new SudokuGoup(size);
+                //sudokuGroup[i] = new SudokuGoup(size);
 
                 for (int j = 0; j < size; j++)
                 {
                     var cell = cellFactory[cellId];
                     cell.Column = j;
                     cell.Row = i;
-                    sudokuGroup[i].Add(cellFactory[cellId]);
+                    //sudokuGroup[i].Add(cellFactory[cellId]);
                     cells.Add(cell);
+                    board[j, i] = cell;
 
                     cellId++;
                 }
             }
         }
 
-        public List<SudokuCell> Cells
+        public List<List<SudokuCell>> Cells
         {
-            get { return cells; }
+            get
+            {
+                List<List<SudokuCell>> lsts = new List<List<SudokuCell>>();
+                for (int i = 0; i < 9; i++)
+                {
+                    lsts.Add(new List<SudokuCell>());
+                    for (int j = 0; j < 9; j++)
+                    {
+                        lsts[i].Add(board[j, i]);
+                    }
+                }
+                return lsts;
+            }
         }
 
         public bool Solve()
@@ -47,39 +61,85 @@ namespace SudokuSolver.Core
             System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
             stopWatch.Start();
 
-            result = BackTracking(0);
+            result = BackTracking(0, 0);
 
             stopWatch.Stop();
             SolvedTime = stopWatch.ElapsedMilliseconds;
             return result;
         }
-
-        private bool BackTracking(int cellId)
+        
+        private bool BackTracking(int col, int row)
         {
-            if (cellId == 81)
+            int nNextRow = row;
+            int nNextCol = col;
+            bool isLastCell = !NextRowCol(ref nNextCol, ref nNextRow);
+
+            if (board[col, row].IsFreeze)
             {
+                if (isLastCell)
+                    return true;
+
+                return BackTracking(nNextCol, nNextRow);
+            }
+
+            List<int> possibilities = new List<int>();
+
+            for (int val = 1; val < 10; val++)
+            {
+                bool bFound = false;
+
+                //check row and col
+                for (int i = 0; i < 9 && !bFound; i++)
+                {
+                    if (board[i, row].Value != null && board[i, row].Value.Value == val)
+                    {
+                        bFound = true;
+                    }
+
+                    if (board[col, i].Value != null && board[col, i].Value.Value == val)
+                    {
+                        bFound = true;
+                    }
+                }
+
+                int nSubGridSize = 3;
+                int subGridRowMax = (nSubGridSize * ((row / nSubGridSize) + 1)) - 1;
+                int subGridColMax = (nSubGridSize * ((col / nSubGridSize) + 1)) - 1;
+
+                for (int y = subGridRowMax - (nSubGridSize - 1); y <= subGridRowMax; y++)
+                {
+                    for (int x = subGridColMax - (nSubGridSize - 1); x <= subGridColMax; x++)
+                    {
+                        if (board[x, y].Value != null && board[x, y].Value.Value == val)
+                        {
+                            bFound = true;
+                        }
+                    }
+                }
+
+                if (!bFound)
+                {
+                    possibilities.Add(val);
+                }
+            }
+
+            if (isLastCell && possibilities.Count > 0)
+            {
+                board[col, row].SetValue(possibilities[0]);
                 return true;
             }
 
-            if (cellFactory[cellId].IsFreeze)
+            foreach (var val in possibilities)
             {
-                return BackTracking(cellId + 1);
-            }
+                board[col, row].SetValue(val);
 
-            for (int i = 1; i < 10; i++)
-            {
-                cellFactory[cellId].SetValue(i);
-
-                if (IsValidPosition() && BackTracking(cellId + 1))
+                if (BackTracking(nNextCol, nNextRow))
                 {
                     return true;
                 }
-                else
-                {
-                    cellFactory[cellId].SetValue(0);
-                }
             }
 
+            board[col, row].SetValue(0);
             return false;
         }
 
@@ -154,13 +214,30 @@ namespace SudokuSolver.Core
 
             return true;
         }
-              
+
+        private bool NextRowCol(ref int col, ref int row)
+        {
+            col++;
+            if (col == 9)
+            {
+                col = 0;
+                row++;
+            }
+            if (row == 9)
+            {
+                row = 0;
+                return false;
+            }
+            return true;
+        }
+
+
         public void Clear()
         {
-            for (int i = 0; i < sudokuGroup.Length; i++)
-            {
-                sudokuGroup[i].Reset();
-            }
-        }  
+            //for (int i = 0; i < sudokuGroup.Length; i++)
+            //{
+            //    sudokuGroup[i].Reset();
+            //}
+        }
     }
 }

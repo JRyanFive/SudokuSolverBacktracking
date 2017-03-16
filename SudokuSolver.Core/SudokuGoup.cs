@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver.Core
 {
-    public class SudokuGoup : ICell
+    public class SudokuGoup : Cell
     {
-        private ICell[] cells;
+        private Cell[] cells;
         private int counter;
         public SudokuGoup(int size)
         {
-            cells = new ICell[size];
+            cells = new Cell[size];
             counter = 0;
         }
 
-        public void Add(ICell cell)
+        public override void Add(Cell cell)
         {
             cells[counter] = cell;
             counter++;
         }
 
-        public ICell Get(int index)
+        public Cell Get(int index)
         {
             return cells[index];
         }
 
-        public void Reset()
+        public override void Reset()
         {
             for (int i = 0; i < cells.Length; i++)
             {

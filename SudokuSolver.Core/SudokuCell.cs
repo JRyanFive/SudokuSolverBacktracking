@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver.Core
 {
-    public class SudokuCell : ICell, INotifyPropertyChanged
+    public class SudokuCell : Cell, INotifyPropertyChanged
     {
-        private int value { get; set; }
+
 
         public int Column { get; set; }
         public int Row { get; set; }
         public bool IsFreeze { get; set; }
 
+        private int value { get; set; }
         public int? Value
         {
             get
@@ -30,12 +31,12 @@ namespace SudokuSolver.Core
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Add(ICell cell)
+        public override void Add(Cell cell)
         {
             throw new NotImplementedException();
         }
 
-        public void Reset()
+        public override void Reset()
         {
             SetValue(0);
             IsFreeze = false;
@@ -48,7 +49,7 @@ namespace SudokuSolver.Core
             NotifyPropertyChanged();
         }
 
-        public ICell Get(int index)
+        public Cell Get(int index)
         {
             throw new NotImplementedException();
         }
