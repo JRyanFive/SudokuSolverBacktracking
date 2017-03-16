@@ -1,4 +1,4 @@
-﻿using SudokuSolver.Core;
+﻿using SudokuSolver.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +21,14 @@ namespace SudokuSolver
     /// </summary>
     public partial class MainWindow : Window
     {
-        GameBoard gameBoard;
+        MainPresenter presenter;
         public MainWindow()
         {
             InitializeComponent();
 
-            gameBoard = new GameBoard();
-            gameBoard.Init();
+            presenter = new MainPresenter();      
      
-            this.DataContext = gameBoard;
+            this.DataContext = presenter;
         }
 
         private void OnMenuExit(object sender, RoutedEventArgs e)
@@ -41,15 +40,7 @@ namespace SudokuSolver
         {
             var t = Task.Run(() =>
             {
-                var result = gameBoard.Solve();
-                if (result)
-                {
-                    MessageBox.Show("Total time to solve: " + gameBoard.SolvedTime + "ms");
-                }
-                else
-                {
-                    MessageBox.Show("Cannot solve sudoku");
-                }
+                presenter.Solver();
             });
         }
 
@@ -63,21 +54,13 @@ namespace SudokuSolver
             inputPad.ShowDialog();
 
             var num = inputPad.Number;
-            SudokuCell cell = (sender as Label).DataContext as SudokuCell;
-            if (num == 0)
-            {
-                cell.Reset();
-            }
-            else
-            {
-                cell.SetValue(num);
-                cell.IsFreeze = true;
-            }
+            NodeModel cell = (sender as Label).DataContext as NodeModel;
+            presenter.SetValue(cell.X, cell.Y, num);
         }
 
         private void OnClear(object sender, RoutedEventArgs e)
         {
-            gameBoard.Clear();
+            presenter.Clear();
         }
     }
 }

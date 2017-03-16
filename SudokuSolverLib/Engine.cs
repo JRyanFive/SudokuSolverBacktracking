@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SudokuSolverLib
 {
-    public class GamePlay
+    public class Engine
     {
         public Board Board { get; set; }
 
-        public GamePlay()
+        public Engine()
         {
             int size = 9;
             Node[,] nodes = new Node[size, size];
@@ -39,7 +39,7 @@ namespace SudokuSolverLib
         public void SetValue(int x, int y, int value)
         {
             Board.Nodes[x, y].Value = value;
-            Board.Nodes[x, y].Locked = true;
+            Board.Nodes[x, y].Locked = value == 0 ? false : true;
         }
 
         public void Clear()

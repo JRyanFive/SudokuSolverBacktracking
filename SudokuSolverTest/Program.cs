@@ -11,7 +11,7 @@ namespace SudokuSolverTest
     {
         static void Main(string[] args)
         {
-            GamePlay gameplay = new GamePlay();
+            Engine gameplay = new Engine();
             var solel = gameplay.Solver(new BacktrackingAlgorithm());
 
             var node = gameplay.Board.Nodes;

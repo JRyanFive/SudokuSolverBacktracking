@@ -37,5 +37,10 @@ namespace SudokuSolver
             Number = 0;
             this.Close();
         }
+
+        public void Open()
+        {
+            this.ShowDialog();
+        }
     }
 }

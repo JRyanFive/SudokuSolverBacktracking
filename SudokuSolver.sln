@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver", "SudokuSolver\SudokuSolver.csproj", "{D7222984-65CC-43B7-AE32-F54E75241F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.Core", "SudokuSolver.Core\SudokuSolver.Core.csproj", "{D5A4A6BE-08B7-4B84-9637-DBB1DFE482AE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolverLib", "SudokuSolverLib\SudokuSolverLib.csproj", "{FF571E5F-7BCD-41EB-88D5-88D717A4D752}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolverTest", "SudokuSolverTest\SudokuSolverTest.csproj", "{FD5E73AB-E15F-4EFF-93C0-AC38CA495584}"
@@ -21,10 +19,6 @@ Global
 		{D7222984-65CC-43B7-AE32-F54E75241F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7222984-65CC-43B7-AE32-F54E75241F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7222984-65CC-43B7-AE32-F54E75241F9B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5A4A6BE-08B7-4B84-9637-DBB1DFE482AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5A4A6BE-08B7-4B84-9637-DBB1DFE482AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5A4A6BE-08B7-4B84-9637-DBB1DFE482AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5A4A6BE-08B7-4B84-9637-DBB1DFE482AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF571E5F-7BCD-41EB-88D5-88D717A4D752}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF571E5F-7BCD-41EB-88D5-88D717A4D752}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF571E5F-7BCD-41EB-88D5-88D717A4D752}.Release|Any CPU.ActiveCfg = Release|Any CPU

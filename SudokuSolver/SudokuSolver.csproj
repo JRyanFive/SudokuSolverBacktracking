@@ -53,18 +53,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    <Compile Include="MainPresenter.cs" />
+    <Compile Include="Models\NodeModel.cs" />
+    <Compile Include="StartUp.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -105,9 +100,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SudokuSolver.Core\SudokuSolver.Core.csproj">
-      <Project>{d5a4a6be-08b7-4b84-9637-dbb1dfe482ae}</Project>
-      <Name>SudokuSolver.Core</Name>
+    <ProjectReference Include="..\SudokuSolverLib\SudokuSolverLib.csproj">
+      <Project>{ff571e5f-7bcd-41eb-88d5-88d717a4d752}</Project>
+      <Name>SudokuSolverLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
